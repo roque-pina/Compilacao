@@ -12,6 +12,8 @@ ELSE     : 'else';
 FOR      : 'for';
 WHILE    : 'while';
 RETURN   : 'return';
+SWITCH   : 'switch';
+CASE     : 'case';
 
 /* Funções Leitura/Escrita */
 READ     : 'read';
@@ -21,6 +23,12 @@ WRITE    : 'write';
 WRITEC   : 'writec';
 WRITES   : 'writes';
 WRITEV   : 'writev';
+
+/* Flow Control */
+BREAK    : 'break';
+CONTINUE : 'continue';
+
+/* 
 
 /* ------------------------------------------------------------------
    OPERADORES E SÍMBOLOS
