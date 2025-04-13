@@ -6,6 +6,8 @@ grammar MOC2;
 
 INT      : 'int';
 DOUBLE   : 'double';
+FLOAT    : 'float';
+CHAR     : 'char';
 VOID     : 'void';
 IF       : 'if';
 ELSE     : 'else';
@@ -93,7 +95,7 @@ initValue
     ;
 
 funcDef
-    : type ID PARENE paramList? PARENE? PAREND block
+    : type ID PARENE paramList? PARENE? PAREND ( block | PTVG)
     ;
 
 paramList
@@ -101,7 +103,7 @@ paramList
     ;
 
 paramDecl
-    : type ID arrayDimension?
+    : type ID? arrayDimension?
     ;
 
 // A block is now inlined into the statement rules.
@@ -111,13 +113,13 @@ block
 
 // Flattened statement rule with labeled alternatives.
 statement
-   : IF PARENE expr PAREND statement (ELSE statement)?    # IfStmt
-   | WHILE PARENE expr PAREND statement                   # WhileStmt
-   | FOR PARENE (assignStatement PTVG)? (expr? PTVG)? (assignStatement)? PAREND statement  # ForStmt
-   | RETURN expr? PTVG                                     # ReturnStmt
-   | CHAVE statement* CHAVR                                # BlockStmt
-   | varDeclList PTVG                                      # VarDeclStmt
-   | (assignStatement | functionCall) PTVG               # ExprStmt
+   : IF PARENE expr PAREND statement (ELSE statement)?                                      # IfStmt
+   | WHILE PARENE expr PAREND statement                                                     # WhileStmt
+   | FOR PARENE (assignStatement PTVG)? (expr? PTVG)? (assignStatement)? PAREND statement   # ForStmt
+   | RETURN expr? PTVG                                                                      # ReturnStmt
+   | CHAVE statement* CHAVR                                                                 # BlockStmt
+   | (type)* varDeclList PTVG                                                               # VarDeclStmt
+   | (assignStatement | functionCall) PTVG                                                  # ExprStmt
    ;
 
 // Assignment and lvalue.
